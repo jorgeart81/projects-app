@@ -10,13 +10,13 @@ interface Props {
 
 defineProps<Props>()
 
+const inputValue = ref('')
+const inputRef = ref<HTMLInputElement | null>(null)
+
 const emits = defineEmits<{
   close: [void]
   value: [text: string]
 }>()
-
-const inputValue = ref('')
-const inputRef = ref<HTMLInputElement | null>(null)
 
 const submitValue = () => {
   if (!inputValue.value) {
