@@ -7,7 +7,7 @@ import SideMenu from '@/modules/projects/components/SideMenu.vue'
   <div class="flex flex-col">
     <!-- Top menu -->
     <top-menu />
-    <main>
+    <main class="flex">
       <!-- Sidemenu -->
       <side-menu />
 
