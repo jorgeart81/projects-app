@@ -1,6 +1,15 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+
 import AddCircle from '@/modules/common/icons/AddCircle.vue'
 import FabButton from '../components/FabButton.vue'
+import InputModal from '@/modules/common/components/InputModal.vue'
+
+const isOpenModal = ref(false)
+
+const onNewValue = (projectName: string) => {
+  console.log({ projectName })
+}
 </script>
 
 <template>
@@ -24,15 +33,18 @@ import FabButton from '../components/FabButton.vue'
         </tr>
       </tbody>
     </table>
-
-    <fab-button
-      @click="
-        () => {
-          console.log('click')
-        }
-      "
-    >
-      <AddCircle />
-    </fab-button>
   </div>
+
+  <InputModal
+    :open="isOpenModal"
+    @close="isOpenModal = false"
+    @value="onNewValue"
+    placeholder="Ingrese el nombre del proyecto"
+    title="Nuevo Proyecto"
+    sub-title="Dale un nombre único a tu proyecto"
+  />
+
+  <fab-button position="bottom-right" @click="isOpenModal = true">
+    <AddCircle />
+  </fab-button>
 </template>
