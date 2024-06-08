@@ -5,13 +5,12 @@ import AddCircle from '@/modules/common/icons/AddCircle.vue'
 import FabButton from '../components/FabButton.vue'
 import InputModal from '@/modules/common/components/InputModal.vue'
 import CustomModal from '@/modules/common/components/CustomModal.vue'
+import { useProjectsStore } from '../store/projects.store'
 
 const isOpenModal = ref(false)
 const isOpenCustomModal = ref(false)
 
-const onNewValue = (projectName: string) => {
-  console.log({ projectName })
-}
+const projectStore = useProjectsStore()
 </script>
 
 <template>
@@ -27,11 +26,11 @@ const onNewValue = (projectName: string) => {
         </tr>
       </thead>
       <tbody>
-        <tr class="hover">
-          <th>2</th>
-          <td>Hart Hagerty</td>
-          <td>Desktop Support Technician</td>
-          <td>Purple</td>
+        <tr v-for="(project, index) in projectStore.projectList" :key="project.id" class="hover">
+          <th>{{ index + 1 }}</th>
+          <td>{{ project.name }}</td>
+          <td>{{ project.tasks.length }}</td>
+          <td><progress class="progress progress-primary w-56" value="0" max="100"></progress></td>
         </tr>
       </tbody>
     </table>
@@ -40,7 +39,7 @@ const onNewValue = (projectName: string) => {
   <input-modal
     :open="isOpenModal"
     @close="isOpenModal = false"
-    @value="onNewValue"
+    @value="projectStore.addProject"
     placeholder="Ingrese el nombre del proyecto"
     title="Nuevo Proyecto"
     sub-title="Dale un nombre único a tu proyecto"
